@@ -1,0 +1,52 @@
+<div class="drop-zone-container" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap>
+	<div fxFlex="100">
+		<h1 *ngIf="nbFileMax == -1">Pas de limite de fichiers</h1>
+		<h1 *ngIf="nbFileMax != -1 && nbFileMax != 0">{{nbFileMax}} fichier(s) maximum</h1>
+	</div>
+	<div class="drop-zone"
+		fxFlex="100"
+		[ngClass]="{'file-over-event': isFileOverDropZone}"
+		(dragenter)="onDragEnter($event)"
+		(dragleave)="onDragLeave($event)"
+		(dragover)="onDragOver($event)"
+		(drop)="onDrop($event)">
+		<h1>Drop file(s) here !</h1>
+	</div>
+	<div fxFlex="100">
+		<mat-divider></mat-divider>
+		<input type="file" multiple (change)="onFileAdded($event)">
+		<mat-divider></mat-divider>
+
+		<table class="upload-table">
+			<thead>
+				<tr>
+					<th>Nom Fichier</th>
+					<th>Taille</th>
+					<th>Actions</th>
+					<th *ngIf="md5Check">Md5</th>
+					<th *ngIf="validationColumn">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of fileQueue.queue">
+					<td> {{item.file.name}} </td>
+					<td> {{item.file.size/1024/1024 | number:'.2'}}Mo </td>
+					<td>
+						<button mat-icon-button color="warn" (click)="item.remove()" matTooltip="Supprimer">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</td>
+					<td *ngIf="md5Check">
+						<span *ngIf="item.md5Hash"> {{item.md5Hash}} </span>
+						<span *ngIf="!item.md5Hash">computing...</span>
+					</td>
+					<td *ngIf="validationColumn">
+						<mat-icon *ngIf="validationColumn && item.apiValidationStatus == 1" matTooltip="En cours de validation">autorenew</mat-icon>
+						<mat-icon *ngIf="validationColumn && item.apiValidationStatus == 2" matTooltip="Fichier valide">check_circle</mat-icon>
+						<mat-icon *ngIf="validationColumn && item.apiValidationStatus == 3" matTooltip="Fichier déjà présent">error</mat-icon>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

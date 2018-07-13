@@ -1,0 +1,63 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap>
+
+	<button mat-raised-button color="primary" class="button-margin-bottom" (click)="back()"><mat-icon>arrow_back</mat-icon>Retour</button>
+
+	<app-card *ngIf="solver" header="{{solver.name}}" fxFlex="100">
+		<mat-menu #solverActionMenu="matMenu">
+			<button mat-menu-item [routerLink]="['/solver/edit', solver.id]"><mat-icon>edit</mat-icon>Modifier</button>
+			<button mat-menu-item (click)="onDelete()"><mat-icon>delete</mat-icon>Supprimer</button>
+		</mat-menu>
+
+		<button mat-raised-button card-action color="accent" matTooltip="Options" [matMenuTriggerFor]="solverActionMenu">
+			<mat-icon>more_vert</mat-icon>
+		</button>
+
+		<div card-content>
+			<mat-list>
+				<h3 mat-subheader>Caractéristiques</h3>
+				<mat-list-item>
+					<p matLine><strong>Nom</strong></p>
+					<p matLine> {{solver.name}} </p>
+				</mat-list-item>
+				<mat-list-item>
+					<p matLine><strong>Version</strong></p>
+					<p matLine> {{solver.version}} </p>
+				</mat-list-item>
+				<mat-list-item>
+					<p matLine>
+						<strong>Description</strong>
+					</p>
+					<p matLine> {{solver.description}} </p>
+				</mat-list-item>
+				<mat-list-item>
+					<p matLine><strong>Date d'ajout</strong></p>
+					<p matLine> {{solver.created | date: 'dd MMMM yy | HH:mm:ss z'}} </p>
+				</mat-list-item>
+				<mat-list-item>
+					<p matLine><strong>Date de modification</strong></p>
+					<p matLine> {{solver.modified | date: 'dd MMMM yy | HH:mm:ss z'}} </p>
+				</mat-list-item>
+
+				<mat-divider></mat-divider>
+
+				<h3 mat-subheader>Fichiers</h3>
+				<mat-list-item>
+					<p>
+						<a mat-raised-button color="warn" href="{{solver.source_path}}" [disabled]="!solver.source_path">
+							<mat-icon>file_download</mat-icon>
+							Sources
+						</a>
+					</p>
+				</mat-list-item>
+				<mat-list-item>
+					<p>
+						<a mat-raised-button color="warn" href="{{solver.executable_path}}" [disabled]="!solver.executable_path">
+							<mat-icon>file_download</mat-icon>
+							Exécutable
+						</a>
+					</p>
+				</mat-list-item>
+			</mat-list>
+		</div>
+	</app-card>
+</div>

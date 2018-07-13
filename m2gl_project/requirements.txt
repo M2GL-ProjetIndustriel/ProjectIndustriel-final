@@ -1,0 +1,17 @@
+attrs==17.4.0
+Django==2.0.2
+django-filter==1.1.0
+djangorestframework==3.7.7
+Markdown==2.6.11
+pluggy==0.6.0
+py==1.5.2
+pytest==3.4.1
+pytest-django==3.1.2
+pytz==2018.3
+six==1.11.0
+django-cors-headers
+# postgresql
+psycopg2==2.7.4
+drf-writable-nested==0.4.1
+
+requests==2.18.4

@@ -1,0 +1,53 @@
+@import '~sass/variables';
+
+.drop-zone-container {
+	margin: 16px;
+}
+
+.drop-zone {
+	height: 200px;
+	background-color: $grey;
+	border: 1px dotted $grey-900;
+	border-radius: 2px;
+	color: $grey-600;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.file-over-event {
+	border: 5px dotted $primary;
+	border-radius: 2px;
+}
+
+mat-divider {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.upload-table {
+	width: 100%;
+	text-align: left;
+	border: 0;
+	border-collapse: collapse;
+	table-layout: fixed;
+
+	th, td {
+		border-bottom: 1px solid $grey-300;
+		word-wrap: break-word;
+	}
+
+	tbody > tr:hover {
+		background-color: $grey-200;
+	}
+
+	th {
+		color: $grey-600;
+		height: 32px;
+	}
+
+	td {
+		color: $grey-900;
+	}
+}

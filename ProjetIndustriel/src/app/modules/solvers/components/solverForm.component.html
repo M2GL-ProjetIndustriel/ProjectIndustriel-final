@@ -1,0 +1,49 @@
+<button mat-raised-button color="primary" class="button-margin-bottom" (click)="back()"><mat-icon>arrow_back</mat-icon>Retour</button>
+<app-card header="Ajouter/Modifier un solveur">
+	<div card-content class="form-container">
+		<div class="loading-shade" *ngIf="isLoadingResults">
+			<h1 class="mat-display-1" *ngIf="isLoadingResults">{{progressValue}}%</h1>
+			<mat-progress-bar color="warn" [value]="progressValue"></mat-progress-bar>
+		</div>
+		<form [formGroup]="solverForm" (ngSubmit)="onSubmit()" novalidate class="form-container" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap>
+			<!-- Data fields -->
+			<mat-form-field fxFlex="100" hintLabel="100 caratères max">
+				<input matInput placeholder="Nom*" formControlName="name">
+				<mat-error *ngIf="solverForm.get('name').invalid && solverForm.get('name').dirty">Nom invalide</mat-error>
+				<mat-hint align="end">{{solverForm.get('name').value?.length || 0}}/100</mat-hint>
+			</mat-form-field>
+			<mat-form-field fxFlex="100" hintLabel="100 caratères max">
+				<input matInput placeholder="Version" formControlName="version">
+				<mat-error *ngIf="solverForm.get('version').invalid && solverForm.get('version').dirty">Version invalide</mat-error>
+				<mat-hint align="end">{{solverForm.get('version').value?.length || 0}}/100</mat-hint>
+			</mat-form-field>
+			<mat-form-field fxFlex="400"  hintLabel="400 caratères max">
+				<textarea matInput placeholder="Description" formControlName="description"></textarea>
+				<mat-error *ngIf="solverForm.get('description').invalid && solverForm.get('description').dirty">Version invalide</mat-error>
+				<mat-hint align="end">{{solverForm.get('description').value?.length || 0}}/400</mat-hint>
+			</mat-form-field>
+			<!-- File Upload -->
+			<mat-accordion multi="true" fxFlex="100">
+				<!-- Sources files drop zone -->
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>Fichiers source</mat-panel-title>
+						<mat-panel-description>Ajouter une archive contenants les fichiers sources.</mat-panel-description>
+					</mat-expansion-panel-header>
+					<app-file-upload nbFileMax=1 md5Check=true validationColumn=true #sourceInput></app-file-upload>
+				</mat-expansion-panel>
+				<!-- Executable drop zone -->
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>Exécutable</mat-panel-title>
+						<mat-panel-description>Ajouter un éxécutable.</mat-panel-description>
+					</mat-expansion-panel-header>
+					<app-file-upload nbFileMax=1 md5Check=true validationColumn=true #execInput></app-file-upload>
+				</mat-expansion-panel>
+			</mat-accordion>
+
+			<span fxFlex="20"><button type="submit" mat-raised-button color="warn">Sauvegarder</button></span>
+			<span fxFlex="80">* : Champ(s) obligatoire</span>
+		</form>
+	</div>
+</app-card>

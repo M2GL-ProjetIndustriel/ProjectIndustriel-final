@@ -1,0 +1,32 @@
+<mat-sidenav-container class="main-container">
+	<!-- Sidebar -->
+	<mat-sidenav #sidenav class="sidenav mat-elevation-z12" mode="side" opened="true" role="navigation">
+		<mat-nav-list>
+			<mat-divider></mat-divider>
+
+			<h3 mat-subheader>Catégories</h3>
+			<mat-list-item *ngFor="let item of items; let i = index"  [routerLink]="['/' + item.routerLink]">
+				<mat-icon matListIcon>{{ item.icon }}</mat-icon>
+				<span>{{ item.label }}</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+
+			<h3 mat-subheader>Paramètres</h3>
+			<mat-list-item>
+				<mat-icon matListIcon>settings</mat-icon>
+				<span>Paramètres</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<!-- Content -->
+	<mat-sidenav-content role="main">
+		<!-- Header -->
+		<app-header [sidenav]="sidenav"></app-header>
+		<!-- Actual content -->
+		<div class="main-content">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>
